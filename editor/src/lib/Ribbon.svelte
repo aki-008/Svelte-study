@@ -1,0 +1,95 @@
+<script lang="ts">
+	let { activeTab }: { activeTab: string } = $props();
+
+	type Group = { label: string; buttons: string[] };
+
+	const belts: Record<string, Group[]> = {
+		File: [],
+		Home: [
+			{ label: 'Clipboard', buttons: ['Paste'] },
+			{ label: 'Font', buttons: ['B', 'I', 'U'] },
+			{ label: 'Paragraph', buttons: ['Bullets', 'Align'] }
+		],
+		Insert: [
+			{ label: 'Tables', buttons: ['Table'] },
+			{ label: 'Illustrations', buttons: ['Picture'] }
+		],
+		Layout: [{ label: 'Paragraph', buttons: ['Spacing'] }]
+	};
+
+	const sizes = ['Legal', 'A4', 'A5', 'Letter', 'A3', 'Tabloid'];
+</script>
+
+<div class="ribbon">
+	{#each belts[activeTab] as group (group.label)}
+		<div class="group">
+			<div class="items">
+				{#each group.buttons as name (name)}
+					<button disabled title="Coming soon">{name}</button>
+				{/each}
+			</div>
+			<div class="group-label">{group.label}</div>
+		</div>
+	{/each}
+	{#if activeTab === 'Layout'}
+		<div class="group">
+			<div class="items">
+				<select>
+					{#each sizes as size (size)}
+						<option selected={size === 'Legal'}>{size}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="group-label">Size</div>
+		</div>
+	{/if}
+</div>
+
+<style>
+	.ribbon {
+		display: flex;
+		gap: 8px;
+		background: white;
+		padding: 8px 16px;
+		border-bottom: 1px solid #e0e0e0;
+		min-height: 72px;
+	}
+	.hint {
+		color: #888;
+		font-size: 13px;
+		align-self: center;
+	}
+	.group {
+		display: flex;
+		flex-direction: column;
+		border-right: 1px solid #e8e8e8;
+		padding-right: 8px;
+	}
+	.group:last-child {
+		border-right: none;
+	}
+	.items {
+		display: flex;
+		gap: 4px;
+		flex: 1;
+		align-items: center;
+	}
+	.group-label {
+		font-size: 11px;
+		color: #888;
+		text-align: center;
+		padding-top: 4px;
+	}
+	button,
+	select {
+		padding: 4px 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background: white;
+		font-size: 13px;
+	}
+	button:disabled {
+		opacity: 0.55;
+		cursor: default;
+	}
+</style>

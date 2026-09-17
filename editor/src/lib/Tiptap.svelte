@@ -6,6 +6,9 @@
 	let element: HTMLElement | undefined = $state();
 	let editorState: { editor: Editor | null } = $state({ editor: null });
 
+	// Parent passes this in; we ring the bell once the editor exists.
+	let { onEditorReady }: { onEditorReady: (editor: Editor) => void } = $props();
+
 	onMount(async () => {
 		const { PaginationPlus } = await import('tiptap-pagination-plus');
 
@@ -40,6 +43,8 @@
 				editorState = { editor };
 			}
 		});
+
+		onEditorReady(editorState.editor as Editor);
 	});
 	onDestroy(() => {
 		editorState.editor?.destroy();
@@ -75,10 +80,10 @@
 </div>
 
 <style>
-	button.active {
+	/*button.active {
 		background: black;
 		color: white;
-	}
+	}*/
 	.editor-page {
 		box-sizing: border-box;
 		background: transparent;

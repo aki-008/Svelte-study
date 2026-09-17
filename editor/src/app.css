@@ -1,0 +1,7 @@
+/* Global sheet: unscoped styles live here (component <style> blocks are
+   scoped and can't reach bare elements like body without :global). */
+
+body {
+	margin: 0;
+	background: grey;
+}
