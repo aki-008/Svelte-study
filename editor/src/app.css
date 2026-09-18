@@ -2,6 +2,10 @@
    scoped and can't reach bare elements like body without :global). */
 
 body {
+	height: 100%;
+	overflow: hidden;
 	margin: 0;
 	background: grey;
 }
+
+html { height: 100%; }

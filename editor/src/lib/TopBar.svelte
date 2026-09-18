@@ -13,6 +13,7 @@
 
 <style>
 	.topbar {
+		flex: none;
 		display: flex;
 		height: 10px;
 		justify-content: space-between;

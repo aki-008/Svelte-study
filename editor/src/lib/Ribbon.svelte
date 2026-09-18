@@ -47,6 +47,7 @@
 
 <style>
 	.ribbon {
+		flex: none;
 		display: flex;
 		gap: 8px;
 		background: white;

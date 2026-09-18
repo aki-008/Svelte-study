@@ -17,6 +17,8 @@ Rule: `learned` requires BOTH explanation in own words AND one unaided use. Noth
 | Component import + render in route | Wired `TopBar` into `+page.svelte` (GAP-3) unaided | 2026-09-17 |
 | Button element + `class` + boolean `disabled` + `title` | TopBar Save button (missed `disabled`/`title` first pass, fixed on review) | 2026-09-17 |
 | `{#each}` list rendering | TabBar tabs loop (missing `{tab}` text first pass, fixed on review) | 2026-09-17 |
+| Viewport units + `overflow` + flex column shell | App-shell slices (built with guidance) | 2026-09-17 |
+| Flex constraint propagation (middle layer must forward) | Lived the `.app` break: trap lines useless on grandchild; fixed with `.app{flex:1;min-height:0}` | 2026-09-17 |
 | `onclick` + handler function | TabBar `selectTab` (merged `class:active` into handler first pass, fixed on review) | 2026-09-17 |
 | `class:active` conditional styling | TabBar active pill (same fix as above) | 2026-09-17 |
 

@@ -35,8 +35,6 @@
 			],
 			content: `
         <h1>Hello Svelte! 🌍️ </h1>
-        <p>This editor is running in Svelte.</p>
-        <p>Select some text to see the bubble menu popping up.</p>
       `,
 			onTransaction: ({ editor }) => {
 				// Update the state signal to force a re-render
@@ -92,9 +90,19 @@
 		padding: 0;
 	}
 
+	.app {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 0;
+	}
+
 	.background {
 		background-color: grey;
 		padding: 20px;
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
 	}
 
 	:global(.rm-with-pagination) {
@@ -102,7 +110,7 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 		/* box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2); */
-		border: grey;
+		border: none;
 	}
 
 	/* Grey only on the gap strip itself (already set via pageBreakBackground);

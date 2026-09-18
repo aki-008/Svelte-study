@@ -1,10 +1,8 @@
 <script lang="ts">
 	// State now lives in +page.svelte (the noticeboard). TabBar only
 	// displays activeTab and reports clicks through onTabChange.
-	let {
-		activeTab,
-		onTabChange
-	}: { activeTab: string; onTabChange: (name: string) => void } = $props();
+	let { activeTab, onTabChange }: { activeTab: string; onTabChange: (name: string) => void } =
+		$props();
 
 	const tabs = ['File', 'Home', 'Insert', 'Layout'];
 
@@ -23,6 +21,7 @@
 
 <style>
 	.tabbar {
+		flex: none;
 		display: flex;
 		gap: 4px;
 		background: #413963;

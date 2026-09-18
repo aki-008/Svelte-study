@@ -7,9 +7,17 @@
 	let activeTab = $state('Home');
 </script>
 
-<main>
+<main class="shell">
 	<TopBar />
-	<TabBar activeTab={activeTab} onTabChange={(t) => (activeTab = t)} />
-	<Ribbon activeTab={activeTab} />
-	<Tiptap />
+	<TabBar {activeTab} onTabChange={(t) => (activeTab = t)} />
+	<Ribbon {activeTab} />
+	<Tiptap onEditorReady={() => console.log('Editor is ready')} />
 </main>
+
+<style>
+	.shell {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+	}
+</style>
