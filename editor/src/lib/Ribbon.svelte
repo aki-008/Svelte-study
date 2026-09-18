@@ -1,5 +1,8 @@
 <script lang="ts">
-	let { activeTab }: { activeTab: string } = $props();
+	import type { Editor } from '@tiptap/core';
+	import { PAGE_SIZES } from 'tiptap-pagination-plus';
+
+	let { activeTab, editor }: { activeTab: string; editor: Editor | null } = $props();
 
 	type Group = { label: string; buttons: string[] };
 
@@ -18,6 +21,16 @@
 	};
 
 	const sizes = ['Legal', 'A4', 'A5', 'Letter', 'A3', 'Tabloid'];
+
+	function handleSizeChange(event: Event) {
+		const key = (event.target as HTMLSelectElement).value;
+		if (!editor) return;
+		editor
+			.chain()
+			.focus()
+			.updatePageSize(PAGE_SIZES[key as keyof typeof PAGE_SIZES])
+			.run();
+	}
 </script>
 
 <div class="ribbon">
@@ -34,7 +47,7 @@
 	{#if activeTab === 'Layout'}
 		<div class="group">
 			<div class="items">
-				<select>
+				<select onchange={handleSizeChange}>
 					{#each sizes as size (size)}
 						<option selected={size === 'Legal'}>{size}</option>
 					{/each}

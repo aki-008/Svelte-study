@@ -1,7 +1,11 @@
 # Learning Progress — AKSHAT (updated after every session)
 
 Statuses: `unseen` → `introduced` (seen with full help) → `practiced` (used with help) → `learned` (own-words + unaided once).
-Rule: `learned` requires BOTH explanation in own words AND one unaided use. Nothing is `learned` yet — that's honest, not behind.
+
+## Learned (retrieve only, never re-teach)
+| Topic | Evidence | Learned |
+|-------|----------|---------|
+| Flex constraint propagation (rationing reaches direct children only; middle layers forward via `flex:1` + `min-height:0`) | Diagnosed `.app` break unaided ("flex:1, direct child, not grandchildren") + named mechanism | 2026-09-17 |
 
 ## Practiced (retrieve before re-teaching)
 | Topic | Evidence | Last touched |
@@ -18,7 +22,6 @@ Rule: `learned` requires BOTH explanation in own words AND one unaided use. Noth
 | Button element + `class` + boolean `disabled` + `title` | TopBar Save button (missed `disabled`/`title` first pass, fixed on review) | 2026-09-17 |
 | `{#each}` list rendering | TabBar tabs loop (missing `{tab}` text first pass, fixed on review) | 2026-09-17 |
 | Viewport units + `overflow` + flex column shell | App-shell slices (built with guidance) | 2026-09-17 |
-| Flex constraint propagation (middle layer must forward) | Lived the `.app` break: trap lines useless on grandchild; fixed with `.app{flex:1;min-height:0}` | 2026-09-17 |
 | `onclick` + handler function | TabBar `selectTab` (merged `class:active` into handler first pass, fixed on review) | 2026-09-17 |
 | `class:active` conditional styling | TabBar active pill (same fix as above) | 2026-09-17 |
 
@@ -36,9 +39,10 @@ Rule: `learned` requires BOTH explanation in own words AND one unaided use. Noth
 ## Retrieval log
 | Date | Quizzed | Result |
 |------|---------|--------|
-| — | — | — |
+| 2026-09-17 | Which layer to suspect if chrome scrolls away (`.app`? which line?) | Correct: `flex:1` + direct-children-only reasoning; `min-height:0` co-role flagged as gap, follow-up open |
 
 ## Session notes
 | Date | Note |
 |------|------|
 | 2026-09-16 | Ribbon v1 locked: native `<select>` for size (custom menu later), File = fake button, Legal stays default, `+page.svelte` owns `activeTab` + `editor`. AKSHAT learned what native `<select>` and state ownership mean (L1). Next: Slice 1 `TopBar.svelte` static Attempt. |
+| 2026-09-17 | Scroll trap built + `.app` forwarding bug lived and fixed. First topic marked `learned` (flex propagation). Open: wiring Attempt (`onEditorReady` → live `updatePageSize`), `min-height:0` follow-up. |
