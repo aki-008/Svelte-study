@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Editor } from '@tiptap/core';
+	import { Editor } from '@tiptap/core';
 	import { PAGE_SIZES } from 'tiptap-pagination-plus';
 
 	let { activeTab, editor }: { activeTab: string; editor: Editor | null } = $props();
@@ -20,16 +20,21 @@
 		Layout: [{ label: 'Paragraph', buttons: ['Spacing'] }]
 	};
 
-	const sizes = ['Legal', 'A4', 'A5', 'Letter', 'A3', 'Tabloid'];
+	const sizeOptions = Object.entries(PAGE_SIZES).map(([key, value]) => ({
+		key,
+		label: key.charAt(0) + key.slice(1).toLowerCase(), // LEGAL → Legal, A4 → A4
+		value
+	}));
+
+	let currentSize = $state('LEGAL');
 
 	function handleSizeChange(event: Event) {
 		const key = (event.target as HTMLSelectElement).value;
+		const size = PAGE_SIZES[key as keyof typeof PAGE_SIZES];
+		if (!size) return;
+		currentSize = key;
 		if (!editor) return;
-		editor
-			.chain()
-			.focus()
-			.updatePageSize(PAGE_SIZES[key as keyof typeof PAGE_SIZES])
-			.run();
+		editor.chain().focus().updatePageSize(size).run();
 	}
 </script>
 
@@ -47,9 +52,9 @@
 	{#if activeTab === 'Layout'}
 		<div class="group">
 			<div class="items">
-				<select onchange={handleSizeChange}>
-					{#each sizes as size (size)}
-						<option selected={size === 'Legal'}>{size}</option>
+				<select value={currentSize} onchange={handleSizeChange}>
+					{#each sizeOptions as option (option.key)}
+						<option value={option.key}>{option.label}</option>
 					{/each}
 				</select>
 			</div>
