@@ -18,9 +18,9 @@
 		height: 10px;
 		justify-content: space-between;
 		align-items: center;
-		background: #413963;
+		background: #1f1f1f;
 		padding: 8px 16px;
-		border-bottom: 1px solid #e0e0e0;
+		border-bottom: 1px solid #333;
 	}
 	.filename {
 		font-weight: 600;
@@ -33,9 +33,10 @@
 	}
 	.save-btn {
 		padding: 2px 10px;
-		border: 1px solid #ccc;
+		border: 1px solid #555;
 		border-radius: 4px;
-		background: white;
+		background: #3a3a3a;
+		color: #eee;
 		cursor: default;
 	}
 	.save-btn:disabled {

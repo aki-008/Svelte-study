@@ -25,7 +25,7 @@
 					marginLeft: 96,
 					marginRight: 96,
 					pageGap: 32,
-					pageBreakBackground: 'grey',
+					pageBreakBackground: '#383838',
 					pageGapBorderColor: 'transparent',
 					footerRight: 'Page {page}'
 				})
@@ -98,7 +98,7 @@
 	}
 
 	.background {
-		background-color: grey;
+		background-color: #383838;
 		padding: 20px;
 		flex: 1;
 		min-height: 0;
@@ -117,6 +117,6 @@
 	   header/footer zones stay transparent so the 1in top/bottom
 	   margins read as white paper, Word-style. */
 	:global(.rm-with-pagination .rm-pagination-gap) {
-		background-color: grey;
+		background-color: #383838;
 	}
 </style>

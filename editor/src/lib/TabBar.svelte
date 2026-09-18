@@ -24,7 +24,7 @@
 		flex: none;
 		display: flex;
 		gap: 4px;
-		background: #413963;
+		background: #1f1f1f;
 		padding: 0 16px;
 	}
 	.hint {
@@ -45,8 +45,8 @@
 		background: rgba(255, 255, 255, 0.12);
 	}
 	button.active {
-		background: white;
-		color: #413963;
+		background: #0078d4;
+		color: white;
 		font-weight: 600;
 	}
 </style>

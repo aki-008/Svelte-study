@@ -63,9 +63,9 @@
 		flex: none;
 		display: flex;
 		gap: 8px;
-		background: white;
+		background: #2b2b2b;
 		padding: 8px 16px;
-		border-bottom: 1px solid #e0e0e0;
+		border-bottom: 1px solid #3a3a3a;
 		min-height: 72px;
 	}
 	.hint {
@@ -76,7 +76,7 @@
 	.group {
 		display: flex;
 		flex-direction: column;
-		border-right: 1px solid #e8e8e8;
+		border-right: 1px solid #444;
 		padding-right: 8px;
 	}
 	.group:last-child {
@@ -90,16 +90,17 @@
 	}
 	.group-label {
 		font-size: 11px;
-		color: #888;
+		color: #9a9a9a;
 		text-align: center;
 		padding-top: 4px;
 	}
 	button,
 	select {
 		padding: 4px 10px;
-		border: 1px solid #ccc;
+		border: 1px solid #555;
 		border-radius: 4px;
-		background: white;
+		background: #3a3a3a;
+		color: #eee;
 		font-size: 13px;
 	}
 	button:disabled {

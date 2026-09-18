@@ -46,3 +46,4 @@ Statuses: `unseen` → `introduced` (seen with full help) → `practiced` (used 
 |------|------|
 | 2026-09-16 | Ribbon v1 locked: native `<select>` for size (custom menu later), File = fake button, Legal stays default, `+page.svelte` owns `activeTab` + `editor`. AKSHAT learned what native `<select>` and state ownership mean (L1). Next: Slice 1 `TopBar.svelte` static Attempt. |
 | 2026-09-17 | Scroll trap built + `.app` forwarding bug lived and fixed. First topic marked `learned` (flex propagation). Open: wiring Attempt (`onEditorReady` → live `updatePageSize`), `min-height:0` follow-up. |
+| 2026-09-18 | Wiring slice completed by AKSHAT (Gap 1+2+3: editor state, props, `handleSizeChange` + `updatePageSize` chain) — test pending. Dark-mode Word palette applied to chrome + canvas (sheets stay white). |
