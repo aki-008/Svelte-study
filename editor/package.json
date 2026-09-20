@@ -17,9 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2.7.3",
+    "@tauri-apps/plugin-fs": "^2.5.2",
     "@tauri-apps/plugin-opener": "^2",
     "@tiptap/core": "^3.31.3",
-    "@tiptap/extension-bubble-menu": "^3.31.3",
     "@tiptap/pm": "^3.31.3",
     "@tiptap/starter-kit": "^3.31.3",
     "tiptap-pagination-plus": "^3.1.0"
