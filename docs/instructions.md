@@ -16,6 +16,7 @@
   1. The technical term + one-line technical meaning.
   2. A layman explanation (daily-life analogy).
 - Never assume knowledge beyond §2. Explain one new word at a time. Ask AKSHAT to predict before explaining further.
+- AKSHAT's standing format (2026-09-20): unfamiliar syntax first → whole-thing TL;DR → line-by-line layman TL;DR. Code shown as skeleton with small unfinished gaps + hints; full explanations only when asked. Keep replies tight, no caveman style.
 
 ## 4. Teaching Levels (new approach, 2026-09-16)
 Match hint detail to AKSHAT's progress status in `docs/learning-progress.md`:
@@ -34,17 +35,13 @@ Match hint detail to AKSHAT's progress status in `docs/learning-progress.md`:
 - Retrieval: before teaching new material, quiz one item from `practiced`/`learned` rows.
 
 ## 6. Current Project Context
-- Repo: `editor/` — SvelteKit + Svelte 5 runes + Tiptap 3.31.3 + `tiptap-pagination-plus@3.1.0` (dynamic `import()` in `onMount`, route `ssr=false` — see §7).
-- Goal: MS Word clone. Legal default (exact `816x1344`, 1in `96px` margins); size switching (A4/A5/…) via `updatePageSize`.
-- DONE: single-doc Legal pagination — white sheets, grey `32px` break bands, `Page {page}` footers, exact Legal dims, `:global(.rm-with-pagination)` sheet guard (Attempt A: outer transparent tray, inner owns sheet).
-- NEXT: Word-like chrome, v1 spec locked 2026-09-16 —
-  TopBar (`src/lib/TopBar.svelte`: filename placeholder + fake Save + user chip, static) →
-  TabBar (File/Home/Insert/Layout, `{#each}` + `activeTab`, File = fake non-functioning button) →
-  Ribbon (Word-style labeled groups, all placeholder `disabled` except ONE real control) →
-  Layout tab Size group: NATIVE `<select>` (browser built-in dropdown; custom Word-style menu parked as later exercise) with A4/A5/Legal (+Letter/A3/Tabloid free), Legal pre-selected (Legal stays default) →
-  wiring via `onEditorReady` callback prop, `editor` + `activeTab` state owned by `+page.svelte` (children presentational; data down, events up).
-  Gotcha to teach at wiring time: `updatePageSize` also overwrites margins with the preset's.
-- Curriculum: `docs/curriculum.md`. Progress log: `docs/learning-progress.md` (update after every session).
+- Repo: `editor/` — **Tauri 2 + SvelteKit SPA** (`adapter-static`, global `ssr=false` in `src/routes/+layout.ts`) + Svelte 5 runes + Tiptap 3.31.3 + `tiptap-pagination-plus@3.1.0` (dynamic `import()` kept as hygiene) + `docx@9.7.2`.
+- Migrated 2026-09-19 from SvelteKit web app (backend dropped; dead `demo/` server routes deleted). `tauri.conf.json`: window `1100x900` (+maximized), min `900x700`, bundle `["nsis"]`. Plugins: fs + dialog, capabilities narrowed to `allow-write/read-text-file`, `allow-write-file`, `allow-save`.
+- Goal: MS Word clone (desktop). Legal default (exact `816x1344`, 1in margins); size switching via `updatePageSize` + exact corrections (`EXACT` map, A5 removed).
+- DONE: Legal pagination (dark `#383838` canvas, white sheets, `Page {page}` footers); ribbon chrome (TopBar/TabBar/Ribbon, Word-dark, native `<select>` fully wired); app-shell scroll trap; D0 docx spike (hardcoded file opens clean in Word); mapper Jobs 1+2 (toRun, toParagraph).
+- NEXT: Job 3 assembly + handleSave wiring → D1 gate (styled doc in Word) → lists/tables/images mapping → import track (parked).
+- Docx contract: export-only v1; ProseMirror JSON is source of truth; every rendered node maps (unknowns degrade, never throw).
+- Curriculum: `docs/curriculum.md`. Progress log: `docs/learning-progress.md` (update after every session). Companion notes: `learning/`.
 
 ## 7. Durable Lessons Log (do not re-teach, retrieve instead)
 - `background` (gradient fake) is paint only — text writes through gaps; real breaks need layout (`PaginationPlus` decorations).
