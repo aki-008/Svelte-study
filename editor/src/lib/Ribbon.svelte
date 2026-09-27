@@ -34,6 +34,11 @@
   let currentMargins = $state({ ...MARGIN_PRESETS.Normal });
   let currentPreset = $state("Normal");
 
+  let topIn = $state(1);
+  let bottomIn = $state(1);
+  let leftIn = $state(1);
+  let rightIn = $state(1);
+
   function applyMargins(m: {
     top: number;
     bottom: number;
@@ -69,6 +74,16 @@
     if (!preset) return;
     currentPreset = key;
     applyMargins(preset);
+  }
+
+  function applyCustomMargins() {
+    currentPreset = "Custom";
+    applyMargins({
+      top: Math.round(topIn * 96),
+      bottom: Math.round(bottomIn * 96),
+      left: Math.round(leftIn * 96),
+      right: Math.round(rightIn * 96),
+    });
   }
 
   function handleSizeChange(event: Event) {
@@ -119,6 +134,43 @@
             <option value={name}>{name}</option>
           {/each}
         </select>
+        <label
+          >T<input
+            type="number"
+            min="0"
+            max="3"
+            step="0.25"
+            bind:value={topIn}
+          /></label
+        >
+        <label
+          >B<input
+            type="number"
+            min="0"
+            max="3"
+            step="0.25"
+            bind:value={bottomIn}
+          /></label
+        >
+        <label
+          >L<input
+            type="number"
+            min="0"
+            max="3"
+            step="0.25"
+            bind:value={leftIn}
+          /></label
+        >
+        <label
+          >R<input
+            type="number"
+            min="0"
+            max="3"
+            step="0.25"
+            bind:value={rightIn}
+          /></label
+        >
+        <button onclick={applyCustomMargins}>Apply</button>
       </div>
       <div class="group-label">Margins</div>
     </div>
