@@ -21,6 +21,30 @@
     Layout: [{ label: "Paragraph", buttons: ["Spacing"] }],
   };
 
+  const MARGIN_PRESETS: Record<
+    string,
+    { top: number; bottom: number; left: number; right: number }
+  > = {
+    Normal: { top: 96, bottom: 96, left: 96, right: 96 },
+    Narrow: { top: 48, bottom: 48, left: 48, right: 48 },
+    Moderate: { top: 96, bottom: 96, left: 72, right: 72 },
+    Wide: { top: 96, bottom: 96, left: 192, right: 192 },
+  };
+
+  let currentMargins = $state({ ...MARGIN_PRESETS.Normal });
+  let currentPreset = $state("Normal");
+
+  function applyMargins(m: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  }) {
+    currentMargins = m;
+    if (!editor) return;
+    editor.chain().focus().updateMargins(m).run();
+  }
+
   const EXACT: Record<string, { w: number; h: number; m: number }> = {
     LEGAL: { w: 816, h: 1344, m: 96 },
     LETTER: { w: 816, h: 1056, m: 96 },
@@ -39,6 +63,14 @@
 
   let currentSize = $state("LEGAL");
 
+  function handleMarginChange(event: Event) {
+    const key = (event.target as HTMLSelectElement).value;
+    const preset = MARGIN_PRESETS[key];
+    if (!preset) return;
+    currentPreset = key;
+    applyMargins(preset);
+  }
+
   function handleSizeChange(event: Event) {
     const key = (event.target as HTMLSelectElement).value;
     const size = PAGE_SIZES[key as keyof typeof PAGE_SIZES];
@@ -53,12 +85,7 @@
       .updatePageSize(size)
       .updatePageWidth(exact.w)
       .updatePageHeight(exact.h)
-      .updateMargins({
-        top: exact.m,
-        bottom: exact.m,
-        left: exact.m,
-        right: exact.m,
-      })
+      .updateMargins(currentMargins)
       .run();
   }
 </script>
@@ -84,6 +111,16 @@
         </select>
       </div>
       <div class="group-label">Size</div>
+    </div>
+    <div class="group">
+      <div class="items">
+        <select value={currentPreset} onchange={handleMarginChange}>
+          {#each Object.keys(MARGIN_PRESETS) as name (name)}
+            <option value={name}>{name}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="group-label">Margins</div>
     </div>
   {/if}
 </div>
