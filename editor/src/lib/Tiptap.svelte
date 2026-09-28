@@ -27,7 +27,7 @@
           pageGap: 32,
           pageBreakBackground: "#383838",
           pageGapBorderColor: "transparent",
-          footerRight: "Page {page}",
+          footerRight: "",
         }),
         // BubbleMenu.configure({
         // 	element: bubbleMenu
@@ -115,14 +115,14 @@
   /* Grey only on the gap strip itself (already set via pageBreakBackground);
 	   header/footer zones stay transparent so the 1in top/bottom
 	   margins read as white paper, Word-style. */
-  :global(.rm-with-pagination .rm-pagination-gap) {
-    background-color: #383838;
-  }
+	:global(.rm-with-pagination .rm-pagination-gap) {
+		background-color: #383838;
+	}
 
-  /* TESTING ONLY — delete this block to restore header/footer.
-	   display:none removes the zones entirely so the measurer reads 0. */
-  :global(.rm-with-pagination .rm-page-header),
-  :global(.rm-with-pagination .rm-page-footer) {
-    display: none !important;
-  }
+	/* Tame paragraph spacing (browser default ~1em top+bottom amplifies
+	   every page-straddle by ~32px). Line-spacing stays a separate future knob. */
+	:global(.rm-with-pagination p) {
+		margin-top: 0;
+		margin-bottom: 6px;
+	}
 </style>

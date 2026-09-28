@@ -1,6 +1,7 @@
 import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeFile } from "@tauri-apps/plugin-fs";
+import type { Editor } from "@tiptap/core";
 
 export async function exportHardcodedDocx(): Promise<string | null> {
   const doc = new Document({
@@ -18,15 +19,49 @@ export async function exportHardcodedDocx(): Promise<string | null> {
   return path;
 }
 
-export async function exportEditorDocx(docJson: PMDoc): Promise<string | null> {
+const pxToIn = (px: number) => px / 96;
+
+export async function exportEditorDocx(editor: Editor): Promise<string | null> {
+  const pg = editor.storage.PaginationPlus;
+  const section = {
+    properties: {
+      page: {
+        size: {
+          width: twips(pxToIn(pg.pageWidth)),
+          height: twips(pxToIn(pg.pageHeight)),
+        },
+        margin: {
+          top: twips(pxToIn(pg.marginTop)),
+          bottom: twips(pxToIn(pg.marginBottom)),
+          left: twips(pxToIn(pg.marginLeft)),
+          right: twips(pxToIn(pg.marginRight)),
+        },
+      },
+    },
+  };
   const doc = new Document({
-    sections: [{ ...LEGAL_SECTION, children: jsonToDocxChildren(docJson) }],
+    sections: [
+      {
+        ...section,
+        children: jsonToDocxChildren(editor.getJSON() as unknown as PMDoc),
+      },
+    ],
   });
   const blob = await Packer.toBlob(doc);
   const path = await save({
     defaultPath: "Untitled.docx",
     filters: [{ name: "Word", extensions: ["docx"] }],
   });
+  console.log(
+    "Debug",
+    "sect",
+    pg.pageWidth,
+    pg.pageHeight,
+    pg.marginTop,
+    pg.marginBottom,
+    pg.marginLeft,
+    pg.marginRight,
+  );
   if (!path) return null; // cancelled — the Cancel-safe rule
   await writeFile(path, new Uint8Array(await blob.arrayBuffer()));
   return path;
@@ -74,19 +109,6 @@ export type PMDoc = {
 
 const twips = (inches: number): number => Math.round(inches * 1440);
 
-const LEGAL_SECTION = {
-  properties: {
-    page: {
-      size: { width: twips(8.5), height: twips(14) },
-      margins: {
-        top: twips(1),
-        bottom: twips(1),
-        left: twips(1),
-        right: twips(1),
-      },
-    },
-  },
-};
 export function jsonToDocxChildren(doc: PMDoc): Paragraph[] {
   const assemble = (doc.content ?? []).map(toParagraph);
   return assemble;

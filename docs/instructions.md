@@ -52,3 +52,7 @@ Match hint detail to AKSHAT's progress status in `docs/learning-progress.md`:
 - Gap color must equal the OUTSIDE background (`pageBreakBackground: 'grey'`), never `transparent` (transparent gap shows container white → invisible breaks). Author's demo paints whole `.breaker` band app-grey; we paint only `.rm-pagination-gap` so 1in margins stay white paper.
 - Svelte scoped CSS ignores runtime-added classes → use `:global(...)` for `.rm-with-pagination` etc.
 - App-shell scroll contract: body locked (`overflow:hidden`) → `.shell` rations fixed `100vh` → EVERY middle layer forwards (`flex:1` + `min-height:0`) → scroll region traps (`overflow-y:auto`) → chrome `flex:none`. Constraints reach direct children only; `min-height:auto` default silently vetoes shrinking (bit twice: `.background`, `.app`).
+- Spread hides misspelled settings from the type-checker (it only catches them on fresh
+  objects, not ones poured through `...spread`) — green checks don't mean spelled-right keys.
+  Check new library settings against the installed type file, and prove with one real output
+  (margin-vs-margins, docx v9).

@@ -4,7 +4,7 @@
   import TabBar from "$lib/TabBar.svelte";
   import Ribbon from "$lib/Ribbon.svelte";
   import { Editor } from "@tiptap/core";
-  import { exportEditorDocx, type PMDoc } from "$lib/exportDocx";
+  import { exportEditorDocx } from "$lib/exportDocx";
 
   let activeTab = $state("Home");
   let editor: Editor | null = $state(null);
@@ -18,7 +18,7 @@
       return;
     }
     saveStatus = "Saving...";
-    const path = await exportEditorDocx(editor.getJSON() as unknown as PMDoc);
+    const path = await exportEditorDocx(editor);
     if (!path) {
       saveStatus = "Save cancelled";
       return;
