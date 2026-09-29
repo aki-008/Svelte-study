@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Editor } from "@tiptap/core";
+  import TextAlign from "@tiptap/extension-text-align";
   import { PAGE_SIZES } from "tiptap-pagination-plus";
 
   let { activeTab, editor }: { activeTab: string; editor: Editor | null } =
@@ -103,6 +104,11 @@
       .updateMargins(currentMargins)
       .run();
   }
+
+  function alignText(value: string) {
+    if (!editor) return;
+    editor.chain().focus().setTextAlign(value).run();
+  }
 </script>
 
 <div class="ribbon">
@@ -116,6 +122,17 @@
       <div class="group-label">{group.label}</div>
     </div>
   {/each}
+  {#if activeTab === "Home"}
+  <div class="group">
+    <div class="items">
+      <button onclick={() => alignText("left")} disabled={!editor} class:active={editor?.isActive({textAlign: 'left'}) ?? false}>Left</button>
+      <button onclick={() => alignText("center")} disabled={!editor} class:active={editor?.isActive({textAlign: 'center'}) ?? false}>Center</button>
+      <button onclick={() => alignText("right")} disabled={!editor} class:active={editor?.isActive({textAlign: 'right'}) ?? false}>Right</button>
+      <button onclick={() => alignText("justify")} disabled={!editor} class:active={editor?.isActive({textAlign: 'justify'}) ?? false}>Justify</button>
+    </div>
+      <div class="group-label">Alignment</div>
+    </div>
+  {/if}
   {#if activeTab === "Layout"}
     <div class="group">
       <div class="items">
@@ -135,7 +152,7 @@
           {/each}
         </select>
         <label
-          >T<input
+          >Top<input
             type="number"
             min="0"
             max="3"
@@ -144,7 +161,7 @@
           /></label
         >
         <label
-          >B<input
+          >Bottom<input
             type="number"
             min="0"
             max="3"
@@ -153,7 +170,7 @@
           /></label
         >
         <label
-          >L<input
+          >Left<input
             type="number"
             min="0"
             max="3"
@@ -162,7 +179,7 @@
           /></label
         >
         <label
-          >R<input
+          >Right<input
             type="number"
             min="0"
             max="3"

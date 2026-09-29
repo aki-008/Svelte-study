@@ -56,3 +56,6 @@ Match hint detail to AKSHAT's progress status in `docs/learning-progress.md`:
   objects, not ones poured through `...spread`) — green checks don't mean spelled-right keys.
   Check new library settings against the installed type file, and prove with one real output
   (margin-vs-margins, docx v9).
+- Silent key mismatches are a recognized bug family (3 instances: `margins`, `alingment`, spread
+  laundering) — ternaries and spreads both escape excess-property checks. Prefer lib enums/drawers
+  (fail loud) over magic strings (fail silent); fix-then-harden order (prove the fix before beautifying).

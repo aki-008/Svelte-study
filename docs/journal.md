@@ -87,6 +87,16 @@ Companion docs: `instructions.md` (how we work), `curriculum.md` (what's taught)
 - Lists/tables/images mapping; `.docx` import (parked iceberg); print CSS; custom dropdown;
   A3-wide overflow verdict; save-path memory; A5-cause note.
 
+## Phase 9 — Alignment end-to-end (closed 2026-09-20)
+
+- C1: `@tiptap/extension-text-align` + `types` config + four Home buttons (guard/chain/active-pill);
+  fixed `Alingment` typo, stray `</div>` orphaning Layout, duplicate `alignText` pasted into
+  Tiptap.svelte (5 phantom errors — lesson: read the filename in check output first).
+- C2: mapper `alignment` via enum drawer (`ALIGN_MAP`), omit-when-default; all four verified in Word.
+- Saga notes: docs-first instinct praised (enum over magic strings); root cause was misspelled
+  property KEY (`alingment`) — silent-key family 3rd instance; fix-then-harden order observed
+  (prove transfer before beautifying). Nit open: hoist `ALIGN_MAP` to module scope.
+
 ## Phase 8 — Margin-transfer bug hunt (closed 2026-09-20)
 
 - Symptom: page size reached the Word file, margins always saved as 1 inch no matter the UI.

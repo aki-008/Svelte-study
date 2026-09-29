@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { Editor } from "@tiptap/core";
   import { StarterKit } from "@tiptap/starter-kit";
-
+  import { TextAlign } from "@tiptap/extension-text-align";
   let element: HTMLElement | undefined = $state();
   let editorState: { editor: Editor | null } = $state({ editor: null });
 
@@ -32,6 +32,9 @@
         // BubbleMenu.configure({
         // 	element: bubbleMenu
         // })
+        TextAlign.configure({
+          types: ["heading", "paragraph"],
+        }),
       ],
       content: `
       `,
@@ -115,14 +118,14 @@
   /* Grey only on the gap strip itself (already set via pageBreakBackground);
 	   header/footer zones stay transparent so the 1in top/bottom
 	   margins read as white paper, Word-style. */
-	:global(.rm-with-pagination .rm-pagination-gap) {
-		background-color: #383838;
-	}
+  :global(.rm-with-pagination .rm-pagination-gap) {
+    background-color: #383838;
+  }
 
-	/* Tame paragraph spacing (browser default ~1em top+bottom amplifies
+  /* Tame paragraph spacing (browser default ~1em top+bottom amplifies
 	   every page-straddle by ~32px). Line-spacing stays a separate future knob. */
-	:global(.rm-with-pagination p) {
-		margin-top: 0;
-		margin-bottom: 6px;
-	}
+  :global(.rm-with-pagination p) {
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
 </style>

@@ -1,4 +1,11 @@
-import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx";
+import {
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  HeadingLevel,
+  AlignmentType,
+} from "docx";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeFile } from "@tauri-apps/plugin-fs";
 import type { Editor } from "@tiptap/core";
@@ -81,7 +88,7 @@ function toRun(node: PMtext) {
 
 type PMBlock = {
   type: string;
-  attrs?: { level?: number };
+  attrs?: { level?: number; textAlign?: string };
   content?: PMtext[];
 };
 
@@ -94,12 +101,26 @@ const HEADINGS: Record<number, HeadingStyle> = {
 
 function toParagraph(node: PMBlock): Paragraph {
   const runs = (node.content ?? []).map(toRun);
+  const alignment = node.attrs?.textAlign;
+  const ALIGN_MAP = {
+    center: AlignmentType.CENTER,
+    right: AlignmentType.RIGHT,
+    justify: AlignmentType.JUSTIFIED,
+    // left: AlignmentType.LEFT,
+  } as const;
+
+  const alignProp =
+    alignment && alignment !== "left"
+      ? { alignment: ALIGN_MAP[alignment as keyof typeof ALIGN_MAP] }
+      : {};
+
   if (node.type === "heading")
     return new Paragraph({
       heading: HEADINGS[node.attrs?.level ?? 0],
       children: runs,
+      ...alignProp,
     });
-  return new Paragraph({ children: runs });
+  return new Paragraph({ children: runs, ...alignProp });
 }
 
 export type PMDoc = {
