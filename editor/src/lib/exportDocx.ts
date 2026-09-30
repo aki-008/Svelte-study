@@ -9,6 +9,7 @@ import {
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeFile } from "@tauri-apps/plugin-fs";
 import type { Editor } from "@tiptap/core";
+import { Indent } from "./indent";
 
 export async function exportHardcodedDocx(): Promise<string | null> {
   const doc = new Document({
@@ -88,7 +89,7 @@ function toRun(node: PMtext) {
 
 type PMBlock = {
   type: string;
-  attrs?: { level?: number; textAlign?: string };
+  attrs?: { level?: number; textAlign?: string; indent?: number };
   content?: PMtext[];
 };
 
@@ -101,6 +102,7 @@ const HEADINGS: Record<number, HeadingStyle> = {
 
 function toParagraph(node: PMBlock): Paragraph {
   const runs = (node.content ?? []).map(toRun);
+  const indentVal = node.attrs?.indent;
   const alignment = node.attrs?.textAlign;
   const ALIGN_MAP = {
     center: AlignmentType.CENTER,
@@ -114,13 +116,17 @@ function toParagraph(node: PMBlock): Paragraph {
       ? { alignment: ALIGN_MAP[alignment as keyof typeof ALIGN_MAP] }
       : {};
 
+  const indentProp =
+    indentVal && indentVal > 0 ? { indent: { left: indentVal } } : {};
+
   if (node.type === "heading")
     return new Paragraph({
       heading: HEADINGS[node.attrs?.level ?? 0],
       children: runs,
       ...alignProp,
+      ...indentProp,
     });
-  return new Paragraph({ children: runs, ...alignProp });
+  return new Paragraph({ children: runs, ...alignProp, ...indentProp });
 }
 
 export type PMDoc = {

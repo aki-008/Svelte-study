@@ -3,6 +3,7 @@
   import { Editor } from "@tiptap/core";
   import { StarterKit } from "@tiptap/starter-kit";
   import { TextAlign } from "@tiptap/extension-text-align";
+  import { Indent } from "$lib/indent";
   let element: HTMLElement | undefined = $state();
   let editorState: { editor: Editor | null } = $state({ editor: null });
 
@@ -35,6 +36,7 @@
         TextAlign.configure({
           types: ["heading", "paragraph"],
         }),
+        Indent,
       ],
       content: `
       `,
