@@ -80,6 +80,20 @@ Companion docs: `instructions.md` (how we work), `curriculum.md` (what's taught)
   Parked in `future-bugs-N-features.md` with reopen bar (real user work loss).
 - Pending: header/footer optional-content control; cut-snapping only on evidence.
 
+## Phase 10 — First-line absorption saga (closed 2026-09-20)
+
+- Spec (AKSHAT): Tab on line 1 → one-shot firstLine; Tab elsewhere → left indent; when left
+  meets/passes firstLine, firstLine clears (no double indent); outdent on line 1 toggles
+  firstLine off directly, keeping left.
+- Bug 1: `updateAttributes` traversal wrote para 1 regardless of cursor → replaced with explicit
+  `$from` ancestor walk + `setNodeMarkup` (deterministic targeting).
+- Bug 2: `onFirstLine` detector compared character-box tops against full line height; font ascent
+  offset (~0.8px) made line-2 diffs (18.4) pass a 19.2 threshold → `lineHeight - 1` epsilon.
+- Bug 3: exact-match absorption (`===`) could fire once per cycle, then indent overshot firstLine
+  permanently and stranded a double indent → widened to meet-or-pass (`>=`), non-first-line only.
+- Each fix addressed a different layer (targeting → detection → rule); earlier fixes didn't fail,
+  they were incomplete — the logs with line tags + annotations proved each layer in turn.
+
 ## Pending threads (checked against tree)
 
 - P4 Word matrix + D1 gate rows (AKSHAT runtime session).
