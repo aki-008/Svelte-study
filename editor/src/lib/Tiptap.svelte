@@ -4,6 +4,8 @@
   import { StarterKit } from "@tiptap/starter-kit";
   import { TextAlign } from "@tiptap/extension-text-align";
   import { Indent } from "$lib/indent";
+  import Ruler from "$lib/Ruler.svelte";
+
   let element: HTMLElement | undefined = $state();
   let editorState: { editor: Editor | null } = $state({ editor: null });
 
@@ -54,28 +56,7 @@
 </script>
 
 <div style="position: relative" class="app">
-  <!-- {#if editorState.editor}
-		<div class="fixed-menu">
-			<button
-				onclick={() => editorState.editor!.chain().focus().toggleHeading({ level: 1 }).run()}
-				class:active={editorState.editor!.isActive('heading', { level: 1 })}
-			>
-				H1
-			</button>
-			<button
-				onclick={() => editorState.editor!.chain().focus().toggleHeading({ level: 2 }).run()}
-				class:active={editorState.editor!.isActive('heading', { level: 2 })}
-			>
-				H2
-			</button>
-			<button
-				onclick={() => editorState.editor!.chain().focus().setParagraph().run()}
-				class:active={editorState.editor!.isActive('paragraph')}
-			>
-				P
-			</button>
-		</div>
-	{/if} -->
+  <Ruler editor={editorState.editor} />
   <div class="background">
     <div bind:this={element} class="editor-page"></div>
   </div>
